@@ -1,0 +1,21 @@
+.drawingCanvas{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: auto;
+}
+
+.mainPage {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: black;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

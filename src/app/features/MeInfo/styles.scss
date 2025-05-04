@@ -1,0 +1,20 @@
+.meInfoContainer {
+  z-index: 20;
+
+  width: 30%;
+  height: 30%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+
+  border-radius: 12px;
+  border: 2px var(--border-style) var(--border-color);
+  position: relative;
+  background-color: rgba(#171717, .1);
+  backdrop-filter: blur(10px);
+
+  pointer-events: none;
+}
