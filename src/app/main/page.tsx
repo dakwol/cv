@@ -8,6 +8,9 @@ import defaultProps from '@/app/main/drawConfig';
 import { useCanvasDraw } from './hooks/useCanvasDraw';
 import { SwitchTheme } from "@/app/features/SwitchTheme/SwitchTheme";
 import { useSwitchTheme } from "@/app/features/SwitchTheme/hooks/useSwitchTheme";
+import {SidebarProject} from "@/app/features/SidebarProject/SidebarProject";
+import {SidebarCv} from "@/app/features/SidebarCv/SidebarCv";
+import {useSidebar} from "@/app/main/hooks/useSidebar";
 
 const CanvasDraw = dynamic(() => import('react-canvas-draw'), {
   ssr: false,
@@ -15,11 +18,14 @@ const CanvasDraw = dynamic(() => import('react-canvas-draw'), {
 });
 
 export default function MainPage() {
+  const pdfUrl = '/cv.pdf';
   const { canvasRef, drawLineCount, handleChange, isStartDraw } = useCanvasDraw();
   const { isDarkTheme, toggleTheme } = useSwitchTheme();
   const [saveData, setSaveData] = useState<string | undefined>(undefined);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
+
+  const { activeSidebar, openSidebar, closeSidebar, isProjectsOpen, isCvOpen } = useSidebar();
 
   useEffect(() => {
     const savedData = localStorage?.getItem("autosave");
@@ -59,6 +65,20 @@ export default function MainPage() {
     };
   }, []);
 
+
+  const buttonsConfig = [
+    {
+      id: 'cv',
+      label: 'Резюме',
+      onClick: () => openSidebar('cv')
+    },
+    {
+      id: 'projects',
+      label: 'Проекты',
+      onClick: () => openSidebar('projects')
+    }
+  ];
+
   return (
     <div className="mainPage">
       <SwitchTheme isDarkTheme={isDarkTheme} toggleTheme={toggleTheme} />
@@ -74,11 +94,22 @@ export default function MainPage() {
           {...defaultProps}
         />
       </div>
-      <MeInfo 
-        name={'Hello'} 
+      <MeInfo
+        name={'Hello'}
         isFixed={isStartDraw && hasUserInteracted}
-        theme={isDarkTheme ? 'ux' : 'ui'} 
-        drawLineCount={drawLineCount} 
+        theme={isDarkTheme ? 'ux' : 'ui'}
+        drawLineCount={drawLineCount}
+        buttons={buttonsConfig}
+      />
+
+      <SidebarProject
+        isOpened={isProjectsOpen}
+        onClose={closeSidebar}
+      />
+      <SidebarCv
+        isOpened={isCvOpen}
+        onClose={closeSidebar}
+        pdfUrl={pdfUrl}
       />
     </div>
   );
