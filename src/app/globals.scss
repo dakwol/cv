@@ -3,10 +3,17 @@
   --foreground: #171717;
   --border-color: #e0e0e0;
   --border-style: dashed;
+  --padding: 12px;
+  --padding-h: 0 12px;
+  --padding-v: 12px 0;
+  --border-rS: 4px;
+  --border-rM: 8px;
+  --border-rL: 12px;
 }
 
 * {
   transition: .2s ease-in-out;
+  color: var(--foreground);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,11 +26,15 @@
 html.dark {
   --border-color: #333;
   --border-style: dashed;
+  --foreground: #ededed;
+  --background: #0a0a0a;
 }
 
 html.light {
   --border-color: #ffffff;
   --border-style: solid;
+  --foreground: #0a0a0a;
+  --background: #ededed;
 }
 
 html,
@@ -33,7 +44,7 @@ body {
 }
 
 body {
-  color: var(--foreground);
+ 
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;

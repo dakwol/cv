@@ -2,6 +2,7 @@
 import * as React from 'react';
 import './styles.scss';
 import {FC} from "react";
+import classNames from 'classnames';
 
 type SwitchThemeProps = {
 	toggleTheme: () => void,

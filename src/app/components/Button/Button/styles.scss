@@ -1,0 +1,16 @@
+.buttonContainer {
+  width: fit-content;
+  height: 40px;
+  padding: var(--padding-h);
+  border: 1px var(--border-style) var(--border-color);
+  background-color: var(--background);
+  border-radius: var(--border-rL);
+  transition: filter 0.3s ease;
+
+  cursor: pointer;
+  pointer-events: all;
+  
+  &:hover {
+    filter: invert(100%);
+  }
+}
