@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 export function useCanvasDraw() {
-  const canvasRef = useRef(null);
+  const canvasRef = useRef<any>(null); // или более точный тип, если доступен
   const [isRestored, setIsRestored] = useState(false);
   const [drawLineCount, setDrawLineCount] = useState(0);
   const [isStartDraw, setIsStartDraw] = useState<boolean>(false);
@@ -26,7 +26,6 @@ export function useCanvasDraw() {
     if (!isRestored || !canvasRef.current) return;
 
     const dataStr = canvasRef.current.getSaveData();
-
     try {
       const data = JSON.parse(dataStr);
       const lines = data?.lines || [];
@@ -34,13 +33,12 @@ export function useCanvasDraw() {
 
       setDrawLineCount(currentLinesCount);
 
-      // Устанавливаем isStartDraw в true только если появилась новая линия
       if (currentLinesCount > prevLinesCountRef.current) {
         setIsStartDraw(true);
       }
       prevLinesCountRef.current = currentLinesCount;
 
-      const shouldClear = lines.some(line => line.points.length > 600);
+      const shouldClear = lines.some((line: any) => line.points.length > 600);
       if (shouldClear) {
         canvasRef.current.clear();
         localStorage.removeItem('autosave');
@@ -56,10 +54,56 @@ export function useCanvasDraw() {
     }
   };
 
+  const handleSaveImage = () => {
+    if (!canvasRef.current) return;
+  
+    // Получаем все canvas-элементы внутри компонента
+    const canvasElements = document.querySelectorAll('.drawingCanvas canvas');
+    
+    // Второй canvas обычно содержит готовый рисунок
+    const drawingCanvas = canvasElements[1] as HTMLCanvasElement;
+    
+    if (!drawingCanvas) {
+      console.error('Drawing canvas not found');
+      return;
+    }
+  
+    // Создаем временный canvas для экспорта
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = drawingCanvas.width;
+    tempCanvas.height = drawingCanvas.height;
+    
+    const ctx = tempCanvas.getContext('2d');
+    if (!ctx) return;
+  
+    // Заливаем фон (если нужно)
+    ctx.fillStyle = '#ffffff'; // или текущий цвет фона
+    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+    
+    // Копируем рисунок
+    ctx.drawImage(drawingCanvas, 0, 0);
+  
+    // Экспортируем
+    const imageData = tempCanvas.toDataURL('image/png');
+    
+    const link = document.createElement('a');
+    link.download = 'drawing.png';
+    link.href = imageData;
+    link.click();
+  };
+
+  const clearDraw = () => {
+    if (canvasRef.current) {
+      canvasRef.current.clear();
+    }
+  };
+
   return {
     canvasRef,
     isStartDraw,
     drawLineCount,
     handleChange,
+    handleSaveImage,
+    clearDraw,
   };
 }

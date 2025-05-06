@@ -19,7 +19,7 @@ const CanvasDraw = dynamic(() => import('react-canvas-draw'), {
 
 export default function MainPage() {
   const pdfUrl = '/cv.pdf';
-  const { canvasRef, drawLineCount, handleChange, isStartDraw } = useCanvasDraw();
+  const { canvasRef, drawLineCount, handleChange, isStartDraw, handleSaveImage, clearDraw } = useCanvasDraw();
   const { isDarkTheme, toggleTheme } = useSwitchTheme();
   const [saveData, setSaveData] = useState<string | undefined>(undefined);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
@@ -94,6 +94,7 @@ export default function MainPage() {
           {...defaultProps}
         />
       </div>
+      <button style={{zIndex: 1000, position: 'fixed', top: 0, left:0}} onClick={handleSaveImage}>Сохранить рисунок</button>
       <MeInfo
         name={'Hello'}
         isFixed={isStartDraw && hasUserInteracted}
@@ -105,6 +106,7 @@ export default function MainPage() {
       <SidebarProject
         isOpened={isProjectsOpen}
         onClose={closeSidebar}
+        theme={isDarkTheme ? 'ux' : 'ui'}
       />
       <SidebarCv
         isOpened={isCvOpen}
