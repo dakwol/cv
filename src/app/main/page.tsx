@@ -12,14 +12,12 @@ import {SidebarProject} from "@/app/features/SidebarProject/SidebarProject";
 import {SidebarCv} from "@/app/features/SidebarCv/SidebarCv";
 import {useSidebar} from "@/app/main/hooks/useSidebar";
 import {FaFilePdf, FaIndustry} from "react-icons/fa";
+import Waves from "@/app/features/Waves/Waves";
 
 const CanvasDraw = dynamic(() => import('react-canvas-draw'), {
 	ssr: false,
 	loading: () => <></>
 });
-
-const Waves = dynamic(() => import('@/app/features/Waves/Waves'), {ssr: false});
-
 
 export default function MainPage() {
 	const pdfUrl = '/cv.pdf';
@@ -41,7 +39,7 @@ export default function MainPage() {
 				if (Array.isArray(parsedData)) {
 					const drawsColors = parsedData.map((item) => ({
 						...item,
-						lines: item.lines?.map((itemDraw) => ({
+						lines: item.lines?.map((itemDraw: any) => ({
 							...itemDraw,
 							brushColor: isDarkTheme ? '#ffffff' : '#000'
 						})) || []
@@ -102,7 +100,6 @@ export default function MainPage() {
 					/>
 					:
 					<Waves/>
-					// <></>
 				}
 			</div>
 			<MeInfo

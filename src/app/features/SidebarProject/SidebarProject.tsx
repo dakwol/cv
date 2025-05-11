@@ -1,8 +1,8 @@
-// @flow 
+// @flow
 import * as React from 'react';
+import {FC} from 'react';
 import {Sidebar} from "@/app/components/Sidebar/Sidebar";
-import {FC} from "react";
-import BlockProject from '@/app/components/BlockProject/BlockProject';
+import TelegramContact from "@/app/features/TelegramContact/TelegramContact";
 
 type SidebarProjectProps = {
 	isOpened: boolean,
@@ -55,14 +55,15 @@ const blocksProj = [
 	},
 ]
 
-export const SidebarProject:FC<SidebarProjectProps> = ({isOpened, onClose, theme}) => {
+export const SidebarProject: FC<SidebarProjectProps> = ({isOpened, onClose, theme}) => {
 	return (
 		<Sidebar isOpen={isOpened} onClose={onClose}>
-			{blocksProj.map((item) => {
-				return (
-					<BlockProject key={item.id} linkImg={item.linkImg} title={item.title} text={item.text} theme={theme}/>
-				)
-			})}
+			{/*{blocksProj.map((item) => {*/}
+			{/*	return (*/}
+			{/*		<BlockProject key={item.id} linkImg={item.linkImg} title={item.title} text={item.text} theme={theme}/>*/}
+			{/*	)*/}
+			{/*})}*/}
+			<TelegramContact/>
 		</Sidebar>
 	);
 };

@@ -10,20 +10,30 @@
     "server": "node server/index.js"
   },
   "dependencies": {
+    "@react-three/drei": "^10.0.7",
+    "@react-three/fiber": "^9.1.2",
+    "@react-three/postprocessing": "^3.0.4",
+    "@react-three/rapier": "^2.1.0",
     "axios": "^1.9.0",
     "classnames": "^2.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "i": "^0.3.7",
     "lodash": "^4.17.21",
+    "meshline": "^3.3.1",
     "multer": "^1.4.5-lts.2",
     "next": "15.3.1",
+    "npm": "^11.3.0",
+    "postprocessing": "^6.37.3",
     "react": "^19.0.0",
     "react-canvas-draw": "^1.1.1",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+    "react-three": "^0.9.7",
     "replicate": "^1.0.1",
-    "sass": "^1.87.0"
+    "sass": "^1.87.0",
+    "three": "^0.176.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
