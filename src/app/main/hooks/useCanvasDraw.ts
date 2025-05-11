@@ -54,13 +54,10 @@ export function useCanvasDraw() {
     }
   };
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     if (!canvasRef.current) return;
   
-    // Получаем все canvas-элементы внутри компонента
     const canvasElements = document.querySelectorAll('.drawingCanvas canvas');
-    
-    // Второй canvas обычно содержит готовый рисунок
     const drawingCanvas = canvasElements[1] as HTMLCanvasElement;
     
     if (!drawingCanvas) {
@@ -68,28 +65,53 @@ export function useCanvasDraw() {
       return;
     }
   
-    // Создаем временный canvas для экспорта
+    // Создаем временный canvas
     const tempCanvas = document.createElement('canvas');
     tempCanvas.width = drawingCanvas.width;
     tempCanvas.height = drawingCanvas.height;
-    
     const ctx = tempCanvas.getContext('2d');
-    if (!ctx) return;
-  
-    // Заливаем фон (если нужно)
-    ctx.fillStyle = '#ffffff'; // или текущий цвет фона
-    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
     
-    // Копируем рисунок
+    if (!ctx) return;
+    
+    // Заливаем фон и копируем рисунок
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
     ctx.drawImage(drawingCanvas, 0, 0);
   
-    // Экспортируем
-    const imageData = tempCanvas.toDataURL('image/png');
-    
-    const link = document.createElement('a');
-    link.download = 'drawing.png';
-    link.href = imageData;
-    link.click();
+    // Конвертируем canvas в Blob
+    const blob = await new Promise<Blob | null>((resolve) => {
+      tempCanvas.toBlob((blob) => resolve(blob), 'image/png');
+    });
+  
+    if (!blob) {
+      console.error('Failed to create blob');
+      return;
+    }
+  
+    // Создаем FormData и добавляем файл
+    const formData = new FormData();
+    formData.append('image', blob, 'drawing.png');
+    formData.append('prompt', 'Красивая картинка в стиле киберпанк');
+  
+    try {
+      const response = await fetch('http://localhost:3001/generate', {
+        method: 'POST',
+        body: formData,
+        // Не устанавливайте Content-Type вручную - браузер сделает это сам с boundary
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const result = await response.json();
+      console.log('Сгенерированное изображение:', result.imageUrl);
+      return result.imageUrl;
+      
+    } catch (error) {
+      console.error('Ошибка при отправке изображения:', error);
+      throw error;
+    }
   };
 
   const clearDraw = () => {
