@@ -39,4 +39,38 @@
     flex-direction: column;
     gap: 8px;
   }
+
+  .closeSidebarButton {
+    position: fixed;
+    top: 26px;
+
+    z-index: 1;
+    background-color: rgba(#171717, .1);
+    border: 2px var(--border-style) var(--border-color);
+
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    cursor: pointer;
+
+    &.right {
+      left: -30px;
+      border-top-left-radius: var(--border-rL);
+      border-bottom-left-radius: var(--border-rL);
+    }
+    &.left {
+      right: -30px;
+      border-top-right-radius: var(--border-rL);
+      border-bottom-right-radius: var(--border-rL);
+    }
+
+    &:hover {
+      border: 2px solid var(--border-color);
+      background: var(--foreground);
+      color: var(--background);
+    }
+  }
 }

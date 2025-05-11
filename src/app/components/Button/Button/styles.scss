@@ -2,14 +2,23 @@
   width: fit-content;
   height: 40px;
   padding: var(--padding-h);
-  border: 1px var(--border-style) var(--border-color);
+  border: 2px var(--border-style) var(--border-color);
   background-color: var(--background);
   border-radius: var(--border-rL);
   transition: filter 0.3s ease;
 
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
   cursor: pointer;
   pointer-events: all;
-  
+
+  .buttonIcon {
+    width: 24px;
+    height: 24px;
+  }
+
   &:hover {
     filter: invert(100%);
   }

@@ -60,7 +60,7 @@ export const SidebarProject:FC<SidebarProjectProps> = ({isOpened, onClose, theme
 		<Sidebar isOpen={isOpened} onClose={onClose}>
 			{blocksProj.map((item) => {
 				return (
-					<BlockProject linkImg={item.linkImg} title={item.title} text={item.text} theme={theme}/>
+					<BlockProject key={item.id} linkImg={item.linkImg} title={item.title} text={item.text} theme={theme}/>
 				)
 			})}
 		</Sidebar>

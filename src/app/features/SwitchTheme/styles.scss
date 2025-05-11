@@ -3,16 +3,35 @@
   top: 12px;
   right: 12px;
   z-index: 21;
-  cursor: pointer;
-  background-color: rgba(#171717, .1);
-  backdrop-filter: blur(10px);
-  border-radius: 50px;
-  width: 40px;
-  height: 40px;
+
   display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px var(--border-style) var(--border-color);
-  color: #ededed;
-  font-size: 12px;
+  flex-direction: column;
+  gap: 12px;
+
+  .switchButton {
+    cursor: pointer;
+    background-color: rgba(#171717, .1);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px var(--border-style) var(--border-color);
+    color: #ededed;
+    font-size: 12px;
+    transform: translateX(0);
+
+    &.close {
+      opacity: 0;
+      transform: translateX(100%);
+      pointer-events: none;
+    }
+
+    &:hover {
+      filter: invert(100%);
+      border: 2px solid var(--foreground);
+    }
+  }
 }

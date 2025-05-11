@@ -9,8 +9,6 @@ type BlockProjectProps = {
     theme?: 'ui' | 'ux';
 }
 
-
-
 const BlockProject:FC<BlockProjectProps> = ({
     linkImg,
     title,
@@ -23,7 +21,7 @@ const BlockProject:FC<BlockProjectProps> = ({
   const placeholderImage = `https://placehold.co/600x400/grey/white?text=${title}`;
   
   return (
-    <div className='blockProjectContainer' onMouseMove={() => setIsHover(!isHover)}>
+    <div className='blockProjectContainer' onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover((false))}>
         <img src={(theme === 'ux' && !isHover) ? placeholderImage : linkImg} alt={title} className='blockProjectImage'></img>
 
         <div className='blockProjectContent'>

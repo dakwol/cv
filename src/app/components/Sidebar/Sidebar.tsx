@@ -18,8 +18,14 @@ export const Sidebar:FC<SidebarProps> = ({
 }) => {
 	return (
 		<div className={classNames("sidebarContaner", {'open': isOpen}, position)}>
+			<div
+				onClick={() => onClose()}
+				className={classNames('closeSidebarButton', position)}
+			>
+				×
+			</div>
 			<div className={'sidebarContainerBlock'}>
-				<div onClick={() => onClose()}>×</div>
+
 				{children}
 			</div>
 		</div>

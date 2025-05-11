@@ -1,4 +1,10 @@
-.cvContainer, .cvContainerIframe {
+.cvContainer {
+  width: 100%;
+  height: 100%;
+}
+.cvContainerIframe {
+  border-radius: var(--border-rM);
+  overflow: hidden;
   width: 100%;
   height: 100%;
 }
